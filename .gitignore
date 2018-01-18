@@ -1,6 +1,6 @@
 .vscode/
 .idea/
 venv/
-.pyc
-.pyo
+*.pyc
+*.pyo
 __pycache__
