@@ -1,0 +1,5 @@
+#ToDo list
+1. finir le "Delete article" bouton + bricoler le design (bootstrap dans le base.html) --> Gabriel
+2. finir le "Create article" bouton --> Zakaria
+3. faire un "Edit article" bouton --> Andras
+
