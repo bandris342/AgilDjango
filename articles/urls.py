@@ -1,5 +1,8 @@
 from django.conf.urls import url, include
-from django.contrib import admin
+from . import views
+
 
 urlpatterns = [
+    url(r'^$', views.articles_list, name='articles_list'),
+    url(r'^detail/(?P<pk>\d+)$', views.article_detail, name='article_detail'),
 ]

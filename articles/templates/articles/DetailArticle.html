@@ -1,0 +1,10 @@
+{% extends 'articles/base.html' %}
+
+
+{% block content %}
+    <h2>{{ article.title }}</h2>
+    <h5><span class="glyphicon glyphicon-time"></span> Post by {{ article.author }}, {{ article.created_at }}</h5>
+    <p>{{ article.description}}</p>
+    <br><br>
+    <a href="#" class="btn btn-danger">Delete Article</a>
+{% endblock %}
