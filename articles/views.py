@@ -12,3 +12,8 @@ def article_detail(request, pk):
     article = Articles.objects.get(pk=pk)
     context = {'article': article}
     return render(request, 'articles/DetailArticle.html', context)
+
+def article_edit(request, pk):
+    article = Articles.objects.get(pk=pk)
+    context = {'article': article}
+    return render(request, 'articles/EditArticle.html', context)
