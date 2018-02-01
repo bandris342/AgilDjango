@@ -29,3 +29,17 @@ def article_edit(request, pk):
         form = PostForm(instance=article)
         context = {"message": "", "form": form}
     return render(request, 'articles/EditArticle.html', context)
+
+def article_new(request):
+    form = PostForm(request.POST)
+    if form.is_valid():
+        article = form.save(commit=False)
+        article.created_at = timezone.now()
+        article.updated_at = article.created_at
+        article.save()
+        message = "Article succesfully saved at " + article.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+        context = {"message": message , "form": form}
+    else:
+        form = PostForm()
+        context = {"message": "", "form": form}
+    return render(request, 'articles/EditArticle.html', context)
