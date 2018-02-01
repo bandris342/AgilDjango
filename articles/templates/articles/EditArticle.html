@@ -1,0 +1,18 @@
+{% extends 'articles/base.html' %}
+
+{% block content %}
+    <h1>Edit post</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {% for field in form %}
+            <fieldset class="control-group">
+                <label class="control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                <div class="controls">
+                    {{ field }}
+                </div>
+            </fieldset>
+        {% endfor %}
+        <br><br>
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+    <h2>{{ message }}</h2>
+{% endblock %}

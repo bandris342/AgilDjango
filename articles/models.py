@@ -11,4 +11,4 @@ class Articles(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def is_updated(self):
-        return self.created_at != self.updated_at
+        return self.created_at.strftime('%Y-%m-%d %H:%M:%S') != self.updated_at.strftime('%Y-%m-%d %H:%M:%S')
