@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib import messages
 from .models import Articles
@@ -23,6 +23,9 @@ def article_edit(request, pk):
         article = form.save(commit=False)
         article.updated_at = timezone.now()
         article.save()
+        message = "Article succesfully updated at " + article.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+        context = {"message": message , "form": form}
     else:
         form = PostForm(instance=article)
-    return render(request, 'articles/EditArticle.html', {'form': form})
+        context = {"message": "", "form": form}
+    return render(request, 'articles/EditArticle.html', context)
