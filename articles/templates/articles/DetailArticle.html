@@ -7,5 +7,5 @@
     <p>{{ article.description}}</p>
     <br><br>
     <a href="{% url 'articles:article_edit' article.pk %}" class="btn btn-warning">Edit Article</a>
-    <a href="#" class="btn btn-danger">Delete Article</a>
+    <a href="{% url 'articles:article_delete' article.pk %}" class="btn btn-danger">Delete Article</a>
 {% endblock %}

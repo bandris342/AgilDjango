@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.contrib import messages
 from .models import Articles
@@ -43,3 +43,10 @@ def article_new(request):
         form = PostForm()
         context = {"message": "", "form": form}
     return render(request, 'articles/EditArticle.html', context)
+
+def article_delete(request, pk):
+    article = Articles.objects.get(pk=pk)
+    message = article.title + " succesfully deleted."
+    article.delete()
+    context = {"message": message}
+    return render(request, 'articles/Message.html', context)
