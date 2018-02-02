@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import Articles
 from .forms import PostForm
 
@@ -16,12 +16,14 @@ def article_detail(request, pk):
     context = {'article': article}
     return render(request, 'articles/DetailArticle.html', context)
 
+@login_required(login_url='login')
 def article_edit(request, pk):
     article = get_object_or_404(Articles, pk=pk)
     form = PostForm(request.POST, instance=article)
     if form.is_valid():
         article = form.save(commit=False)
         article.updated_at = timezone.now()
+        article.author = user.username
         article.save()
         message = "Article succesfully updated at " + article.updated_at.strftime('%Y-%m-%d %H:%M:%S')
         context = {"message": message , "form": form}
@@ -30,6 +32,7 @@ def article_edit(request, pk):
         context = {"message": "", "form": form}
     return render(request, 'articles/EditArticle.html', context)
 
+@login_required(login_url='login')
 def article_new(request):
     form = PostForm(request.POST)
     if form.is_valid():
@@ -44,6 +47,7 @@ def article_new(request):
         context = {"message": "", "form": form}
     return render(request, 'articles/EditArticle.html', context)
 
+@login_required(login_url='login')
 def article_delete(request, pk):
     article = Articles.objects.get(pk=pk)
     message = article.title + " succesfully deleted."
