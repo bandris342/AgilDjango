@@ -4,9 +4,9 @@
 {% block content %}
     {% for article in articles %}
       <h2>{{ article.title }}</h2>
-      <h5><span class="glyphicon glyphicon-time"></span> Post by {{ article.author }}, Created at {{ article.created_at }}
+      <h5><span class="glyphicon glyphicon-time"></span> Created by {{ article.author }}, Created at {{ article.created_at }}
       {% if article.is_updated %}
-          Updated at {{ article.updated_at }}
+          Updated by {{ article.updatedby }} at {{ article.updated_at }}
       {% endif %}</h5>
       <p>{{ article.description|truncatechars:80}}</p>
       <a href="{% url 'articles:article_detail' article.pk %}">Read more</a>

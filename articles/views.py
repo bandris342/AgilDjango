@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from .models import Articles
 from .forms import PostForm
 
@@ -23,8 +22,8 @@ def article_edit(request, pk):
     form = PostForm(request.POST, instance=article)
     if form.is_valid():
         article = form.save(commit=False)
+        article.updatedby = request.user
         article.updated_at = timezone.now()
-        article.author = User.username()
         article.save()
         message = "Article succesfully updated at " + article.updated_at.strftime('%Y-%m-%d %H:%M:%S')
         context = {"message": message , "form": form}
@@ -38,6 +37,7 @@ def article_new(request):
     form = PostForm(request.POST)
     if form.is_valid():
         article = form.save(commit=False)
+        article.author = request.user
         article.created_at = timezone.now()
         article.updated_at = article.created_at
         article.save()
