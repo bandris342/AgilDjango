@@ -22,7 +22,7 @@ def article_edit(request, pk):
     form = PostForm(request.POST, instance=article)
     if form.is_valid():
         article = form.save(commit=False)
-        article.updatedby = request.user
+        article.updatedby = str(request.user)
         article.updated_at = timezone.now()
         article.save()
         message = "Article succesfully updated at " + article.updated_at.strftime('%Y-%m-%d %H:%M:%S')
@@ -37,7 +37,7 @@ def article_new(request):
     form = PostForm(request.POST)
     if form.is_valid():
         article = form.save(commit=False)
-        article.author = request.user
+        article.author = str(request.user)
         article.created_at = timezone.now()
         article.updated_at = article.created_at
         article.save()
