@@ -3,7 +3,10 @@
 
 {% block content %}
     <h2>{{ article.title }}</h2>
-    <h5><span class="glyphicon glyphicon-time"></span> Post by {{ article.author }}, {{ article.created_at }}</h5>
+      <h5><span class="glyphicon glyphicon-time"></span> Created by {{ article.author }} at {{ article.created_at }}
+      {% if article.is_updated %}
+          Updated by {{ article.updatedby }} at {{ article.updated_at }}
+      {% endif %}</h5>
     <p>{{ article.description}}</p>
     <br><br>
     {% if user.is_authenticated %}

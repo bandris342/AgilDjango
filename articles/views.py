@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
 from .models import Articles
 from .forms import PostForm
 
@@ -55,3 +57,15 @@ def article_delete(request, pk):
     article.delete()
     context = {"message": message}
     return render(request, 'articles/Message.html', context)
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            message = "New user succesfully created."
+            context = {"message": message}
+            return render(request, 'articles/Message.html', context)
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})

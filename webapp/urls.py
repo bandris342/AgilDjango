@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^articles/', include('articles.urls', namespace="articles"), name="articles"),
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'home'}, name='logout'),
+    url(r'^signup/$', views.signup, name='signup'),
 ]
