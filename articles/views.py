@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Articles
 from .forms import PostForm
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -14,5 +15,19 @@ def article_detail(request, pk):
     context = {'articles': article}
     return render(request, 'articles/DetailArticle.html', context)
 def post_new(request):
-    form = PostForm()
-    return render(request, 'articles/create_article.html', {'form': form})
+      form = PostForm()
+      article = form.save(commit=False)
+      article.author = request.user
+      article.save()
+      return render(request, 'articles/create_article.html', {'form': form})
+# def post_new(request):
+#     if request.method == "POST":
+#         form = PostForm(request.POST)
+#         if form.is_valid():
+#             article = form.save(commit=False)
+#             article.author = request.user
+#             article.save()
+#             return redirect('articles_list', pk=article.pk)
+#     else:
+#         form = PostForm()
+#     return render(request, 'articles/create_article.html', {'form': form})   
